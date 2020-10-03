@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export BUILD_DIR=$1
-export POETRY_VERSION=1.0.10
+export POETRY_VERSION=1.0.5
 export PIP_VERSION=20.1.1
 export SETUPTOOLS_VERSION=47.1.1
 
@@ -16,7 +16,7 @@ function indent() {
 echo "-----> Generate requirements.txt with Poetry"
 
 echo "-----> Install Poetry"
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python | indent
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python - --version=$POETRY_VERSION | indent
 
 source $HOME/.poetry/env
 
@@ -26,6 +26,7 @@ cd "$BUILD_DIR"
 
 # pip can't handle editable dependencies when requiring hashes (https://github.com/pypa/pip/issues/4995)
 poetry export -f requirements.txt -o requirements.txt --without-hashes
+echo -e "pip==$PIP_VERSION\n$(cat requirements.txt)" > requirements.txt
 echo -e "setuptools==$SETUPTOOLS_VERSION\n$(cat requirements.txt)" > requirements.txt
 echo -e "-e .\n$(cat requirements.txt)" > requirements.txt
 
