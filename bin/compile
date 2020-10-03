@@ -3,7 +3,7 @@
 export BUILD_DIR=$1
 export POETRY_VERSION=1.0.5
 export PIP_VERSION=20.1.1
-export SETUPTOOLS_VERSION=46.4.0
+export SETUPTOOLS_VERSION=47.1.1
 
 function indent() {
         c='s/^/       /'
